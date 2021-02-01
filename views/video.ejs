@@ -1,0 +1,23 @@
+<%- include('templates/header.ejs')  %>
+<body>
+  <section class="video">
+    <div class="grid">
+      <div class="row">
+        <div class="col col-12 col-sm-12">
+          <div class="video__poster__container">
+            <video controls src="<%= videos[videoId-1].video %> " type="video/mp4" class="video__poster" id="video"></video>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row info">
+        <div class="col col-12 col-sm-12">
+          <p class="video__description"><%= videos[videoId-1].description %> </p>
+        </div>
+      </div>
+      <a href="/">Til baka</a>
+    </div>
+  </section>
+</body>
+<br>
+<%- include('templates/footer.ejs') %>

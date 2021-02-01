@@ -1,0 +1,33 @@
+<%- include('templates/header.ejs') %>
+<main>
+      <% categories.forEach(category => { %>
+      <section>
+        <div class="grid">
+          <div class="row">
+            <div class="col col-12 col-sm-12">
+              <h2 class="category__title"><%= category.catTitle %></h2>
+            </div>
+          </div>
+          <div class="row videoRow">
+            <% category.videos.forEach(video => { %>
+              <div class="col col-4 col-sm-12">
+                <div class="card">
+                  <a href="<%= video.id %>" class="img__container">
+                    <img src="<%= video.poster %>" alt="mynd" class="card__poster">
+                    <p class="img__duration"><%= funky.setDuration(video.duration) %> </p>
+                  </a>
+                  <h3 class="card__title"><%= video.title %> </h3>
+                  <p class="card__created"><%= funky.formatDate(video.created) %> </p>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+          <div class="line-container">
+            <hr class="line col col-10 offset-col-1">
+          </div>
+        </div>
+      </section>
+      <% }) %>
+    </main>
+      <%- include('templates/footer.ejs')%>
+

@@ -1,0 +1,32 @@
+{
+  "name": "vef2-2021-v1",
+  "version": "1.0.0",
+  "description": "[Kynning í fyrirlestri](https://youtu.be/pCEHnurbuCU).",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "sass": "node-sass --source-map-embed --watch styles.scss --recursive public/css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjarnig86/vef2-v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjarnig86/vef2-v1/issues"
+  },
+  "homepage": "https://github.com/bjarnig86/vef2-v1#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "node-sass": "^5.0.0",
+    "sass": "^1.32.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "sass-watch": "^0.1.0"
+  }
+}

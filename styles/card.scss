@@ -1,0 +1,49 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+
+  h3 {
+    font-size: 1.25rem;
+    color: black;
+  }
+
+  &__poster {
+    display: flex;
+    object-fit: cover;
+  }
+  /* stylelint-disable-next-line selector-class-pattern */
+  .img__container {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  /* stylelint-disable-next-line selector-class-pattern */
+  .img__container p {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 10px;
+    color: #fff;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    right: 10px;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+/* stylelint-disable-next-line selector-class-pattern */
+.line-container {
+  margin-bottom: 2em;
+}
+
+.created {
+  font-size: 1rem;
+  margin-bottom: 100px;
+  margin-left: 380px;
+  margin-top: -45px;
+  max-width: 50px;
+  position: relative;
+  text-align: center;
+}

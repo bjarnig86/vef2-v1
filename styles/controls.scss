@@ -1,0 +1,21 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+
+  > img {
+    cursor: pointer;
+    display: flex;
+    margin: 10px;
+    max-height: 50px;
+  }
+
+  .button-hidden {
+    display: none;
+  }
+
+  .button-visible {
+    display: block;
+  }
+}

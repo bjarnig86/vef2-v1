@@ -1,0 +1,13 @@
+<%- include('header') -%> <% categories.forEach(videos => { %>
+<section></section>
+<% }) %> <%- include('footer') -%>
+
+
+<h2><%=category.title%></h2>
+        <div class="videos">
+          <% category.videos.forEach(video => { %>
+          <h3><%=video.title %></h3>
+          <a href="/<%=video.id%>">Skoða video</a>
+
+          <% }) %>
+        </div>
