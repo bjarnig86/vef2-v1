@@ -23,7 +23,7 @@ function index(req, res) {
       // console.log(categoryVideoId, video);
       if (!video) {
         // TODO hvað gerum við ef finnst ekki?
-        res.status(404).send('404 Myndband ekki til');
+        res.status(404).send('404 Villa við að sækja gögn');
       }
       return video;
     });
@@ -44,17 +44,22 @@ function index(req, res) {
 function video(req, res) {
   const dataJson = data;
   console.log(req.params);
-  const videoId = req.params.id;
+  const videoId = parseInt(req.params.id);
 
   // TODO, er video til? ef svo , senda í video ejs template
   const { videos } = dataJson;
   // videos.find....
-
+  const video = videos.find((video) => video.id === videoId);
   // Annars, senda í 404 meðhöndlun
+  if (!video) {
+    res.status(404).send('404 myndband ekki til');
+  }
+
   res.render('./video', {
     videoId,
     videos,
-    title: `${videos[videoId - 1].title}`,
+    video,
+    title: `${video.title}`,
   });
 }
 
@@ -62,4 +67,4 @@ function video(req, res) {
 app.get('/', index); // Einhver biður um http://localhost:3000/ => svarar með því sem kemur úr index
 app.get('/:id', video); // Einhver biður um http://localhost:3000/id =>
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
