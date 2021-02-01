@@ -14,10 +14,10 @@
                 <div class="card">
                   <a href="<%= video.id %>" class="img__container">
                     <img src="<%= video.poster %>" alt="mynd" class="card__poster">
-                    <p class="img__duration"><%= funky.setDuration(video.duration) %> </p>
+                    <p class="img__duration"><%= setDuration(video.duration) %> </p>
                   </a>
                   <h3 class="card__title"><%= video.title %> </h3>
-                  <p class="card__created"><%= funky.formatDate(video.created) %> </p>
+                  <p class="card__created"><%= formatDate(video.created) %> </p>
                 </div>
               </div>
             <% }) %>

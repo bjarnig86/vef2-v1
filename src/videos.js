@@ -1,79 +1,74 @@
-module.exports = {
-  formatDate: function (timestamp) {
-    // TODO Útfæra með „vanilla JS“ eða nota date-fns pakka
-    const currentDate = new Date();
-    const timeInMS = currentDate.getTime();
+const express = require('express');
+const router = express.Router();
+const data = require('../videos.json');
 
-    const timeDifference = timeInMS - timestamp;
-    const second = 1000;
-    const minute = 60 * second;
-    const hour = 60 * minute;
-    const day = 24 * hour;
-    const week = 7 * day;
-    const month = 4 * week;
-    const year = 12 * month;
+// Navigation föll
+function index(req, res, next) {
+  const dataJson = data;
+  const { videos, categories } = dataJson;
+  const mapped = categories.map((category) => {
+    // viljum finna hvaða video eru í hverju category
+    const mapped = category.videos
+      .map((categoryVideoId) => {
+        const video = videos.find((video) => video.id === categoryVideoId);
+        // console.log(categoryVideoId, video);
+        if (!video) {
+          // TODO hvað gerum við ef finnst ekki?
+          //next();
+          return null;
+        }
+        return video;
+      })
+      .filter(Boolean);
 
-    if (timeDifference < minute) {
-      return 'Fyrir minna en mínútu síðan';
-    }
+    return {
+      catTitle: category.title,
+      videos: mapped,
+    };
+  });
 
-    if (timeDifference < hour) {
-      const x = Math.round(timeDifference / minute);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} mínútu síðan`;
+  res.render(
+    './index',
+    {
+      categories: mapped,
+      title: 'Fræðslumyndbandaleigan',
+      footer: 'Fræðslumyndbandaleigan',
+    },
+    (err, html) => {
+      // Ef villa kemur upp í EJS templ
+      if (err) {
+        return next(err);
+      } else {
+        res.send(html);
       }
-      return `Fyrir ${x} mínútum síðan`;
     }
+  );
+}
 
-    if (timeDifference < day) {
-      const x = Math.round(timeDifference / hour);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} klukkustund síðan`;
-      }
-      return `Fyrir ${x} klukkustundum síðan`;
-    }
+function video(req, res, next) {
+  const dataJson = data;
+  console.log(req.params);
+  const videoId = parseInt(req.params.id);
 
-    if (timeDifference < week) {
-      const x = Math.round(timeDifference / day);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} degi síðan`;
-      }
-      return `Fyrir ${x} dögum síðan`;
-    }
+  // TODO, er video til? ef svo , senda í video ejs template
+  const { videos } = dataJson;
+  // videos.find....
+  const video = videos.find((video) => video.id === videoId);
+  // Annars, senda í 404 meðhöndlun
+  if (!video) {
+    return next();
+  }
 
-    if (timeDifference < month) {
-      const x = Math.round(timeDifference / week);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} viku síðan`;
-      }
-      return `Fyrir ${x} vikum síðan`;
-    }
+  res.render('./video', {
+    videoId,
+    videos,
+    video,
+    title: `${video.title}`,
+    footer: 'Fræðslumyndbandaleigan',
+  });
+}
 
-    if (timeDifference < year) {
-      const x = Math.round(timeDifference / month);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} mánuði síðan`;
-      }
-      return `Fyrir ${x} mánuðum síðan`;
-    }
+router.get('/', index);
+router.get('/:id', video);
 
-    if (timeDifference >= year) {
-      const x = Math.round(timeDifference / year);
-      if (x % 10 === 1 && x !== 11) {
-        return `Fyrir ${x} ári síðan`;
-      }
-      return `Fyrir ${x} árum síðan`;
-    }
-
-    return `Unknown`;
-  },
-  setDuration: function (duration) {
-    const dur = duration;
-    const m = parseInt(dur / 60, 10);
-    const s = dur % 60;
-    if (s < 10) {
-      return `${m}:0${s}`;
-    }
-    return `${m}:${s}`;
-  },
-};
+module.exports = router;
