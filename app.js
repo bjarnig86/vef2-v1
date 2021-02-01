@@ -23,7 +23,7 @@ function index(req, res) {
       // console.log(categoryVideoId, video);
       if (!video) {
         // TODO hvað gerum við ef finnst ekki?
-        res.status(404).send('404 Villa við að sækja gögn');
+        res.status(404).send(`<h1>404 Villa við að sækja gögn</h1>`);
       }
       return video;
     });
@@ -52,7 +52,7 @@ function video(req, res) {
   const video = videos.find((video) => video.id === videoId);
   // Annars, senda í 404 meðhöndlun
   if (!video) {
-    res.status(404).send('404 myndband ekki til');
+    res.status(404).send(`<h1>404 myndband ekki til</h1>`);
   }
 
   res.render('./video', {
