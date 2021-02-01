@@ -4,7 +4,7 @@
   "description": "[Kynning í fyrirlestri](https://youtu.be/pCEHnurbuCU).",
   "main": ".eslintrc.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "stylelint **/*.scss eslint **/*.js",
     "start": "nodemon app.js",
     "sass": "node-sass --source-map-embed --watch styles.scss --recursive public/css/styles.css"
   },
@@ -26,7 +26,11 @@
     "sass": "^1.32.5"
   },
   "devDependencies": {
+    "eslint": "^7.19.0",
     "nodemon": "^2.0.7",
-    "sass-watch": "^0.1.0"
+    "sass-watch": "^0.1.0",
+    "stylelint": "^13.9.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-config-standard": "^20.0.0"
   }
 }
